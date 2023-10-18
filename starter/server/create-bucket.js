@@ -5,8 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 AWS.config.update({ region: 'us-east-2' });
 // Create S3 service object
 const s3 = new AWS.S3({ apiVersion: '2006-03-01' });
-// Create the parameters for calling createBucket
-const currentDate = new Date().toISOString();
+
 
 var bucketParams = {
     Bucket: 'user-images-' + uuidv4(),
@@ -14,12 +13,6 @@ var bucketParams = {
       LocationConstraint: 'us-east-2', // Specify your desired region 
 }
 };
-
-// Set the Date header explicitly
-bucketParams.Headers = {
-  Date: currentDate
-};
-
 
 // call S3 to create the bucket
 s3.createBucket(bucketParams, (err, data) => {
