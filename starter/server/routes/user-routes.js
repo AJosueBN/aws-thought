@@ -14,7 +14,7 @@ router.get('/users', (req, res) => {
     const params = {
       TableName: table,
     };
-    // Scan return all items in the table
+    // Scan return all items in the table 'Thoughts'
   dynamodb.scan(params, (err, data) => {
     if (err) {
       res.status(500).json(err); // an error occurred if get method failed

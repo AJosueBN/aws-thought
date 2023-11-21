@@ -9,10 +9,12 @@ AWS.config.update({
 });
 console.log('Importing thoughts into DynamoDB. Please wait.');
 
+// Turns data gathered and turns it into an object in JSON format
 const allUsers = JSON.parse(
   fs.readFileSync('./server/seed/users.json', 'utf8'),
 );
 
+// allows to iterate over each user gathered
 allUsers.forEach(user => {
     const params = {
       TableName: "Thoughts",
@@ -22,9 +24,10 @@ allUsers.forEach(user => {
         "thought": user.thought
       }
     }
+    // Helps to insert new thought from a user
     dynamodb.put(params, (err, data) => {
         if (err) {
-          console.error("Unable to add thought", user.username, ". Error JSON:", JSON.stringify(err, null, 2));
+          console.error("Unable to add thought", user.username, ". Error JSON:", JSON.stringify(err, null, 2)); // Error occured if thought insertion failed
         } else {
           console.log("PutItem succeeded:", user.username);
         }
