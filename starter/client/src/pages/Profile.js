@@ -10,6 +10,22 @@ const Profile = props => {
     createdAt: '', 
     thought: '',
   }]);
+   
+  // The 'useEffect' hook allows the userParam sourced from the React Router to retain the username from the ThoughtList component and pass it in the URL.
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`/api/users/${userParam}`);
+        const data = await res.json();
+        console.log(data);
+        setThoughts([...data]);
+        setIsLoaded(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [userParam]);
 
   return (
     <div>
